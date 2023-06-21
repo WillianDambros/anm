@@ -1,0 +1,94 @@
+# ANM ARRECADACAO
+
+# destino da pasta para os arquivos (escolha)
+
+"Z:/POWER BI/" |> setwd()
+
+# gerando pasta
+
+nome_pasta <- "ANM"
+
+dir.create(paste0(getwd(),"/", nome_pasta))
+setwd(paste0(getwd(),"/", nome_pasta))
+
+# gerando pasta 
+nome_pasta_anm_arrecadacao <- "anm_arrecadacao"
+
+dir.create(paste0(getwd(),"/", nome_pasta_anm_arrecadacao))
+setwd(paste0(getwd(),"/", nome_pasta_anm_arrecadacao))
+
+# cfem_arrecadacao #
+
+# Downloading and preparing the archive
+
+anm_cfem_arrecadacao_endereco <-
+  "https://app.anm.gov.br/dadosabertos/ARRECADACAO/CFEM_Arrecadacao.csv"
+
+anm_cfem_arrecadacao <- readr::read_csv2(anm_cfem_arrecadacao_endereco,
+                                         locale = locale(encoding = "latin1"))
+
+anm_cfem_arrecadacao <- 
+  anm_cfem_arrecadacao |> 
+  tidyr::unite(competencia, "Mês", "Ano", sep = "-") |> 
+  dplyr::mutate(competencia = stringr::str_c("01-", competencia)) |>
+  dplyr::mutate(competencia = lubridate::dmy(competencia))
+
+# Writing file
+
+nome_arquivo_csv <- "anm_cfem_arrecadacao"
+
+caminho_arquivo <- paste0(getwd(),"/",nome_arquivo_csv, ".txt")
+
+readr::write_csv2(anm_cfem_arrecadacao,
+                  caminho_arquivo)
+
+# cefm_autuacao #
+
+anm_cfem_autuacao_endereco <-
+  "https://app.anm.gov.br/dadosabertos/ARRECADACAO/CFEM_Autuacao.csv"
+
+anm_cfem_autuacao <- readr::read_csv2(anm_cfem_autuacao_endereco,
+                           locale = locale(encoding = "latin1"))
+
+anm_cfem_autuacao|> dplyr::glimpse()
+
+anm_cfem_autuacao$Valor[3]
+
+
+anm_cfem_autuacao_teste <- 
+  anm_cfem_autuacao |> 
+  tidyr::unite(competencia_publicacao, "MêsPublicação", "AnoPublicação", sep = "-") |> 
+  dplyr::mutate(competencia_publicacao = stringr::str_c("01-", competencia_publicacao)) |>
+  dplyr::mutate(competencia_publicacao = lubridate::dmy(competencia_publicacao))
+
+# Writing file
+
+nome_arquivo_csv <- "anm_cfem_autuacao"
+
+caminho_arquivo <- paste0(getwd(),"/",nome_arquivo_csv, ".txt")
+
+readr::write_csv2(anm_cfem_autuacao,
+                  caminho_arquivo)
+
+# cfem_distribuicao #
+
+anm_cfem_distribuicao_endereco <-
+  "https://app.anm.gov.br/dadosabertos/ARRECADACAO/CFEM_Distribuicao.csv"
+
+anm_cfem_distribuicao <- readr::read_csv2(anm_cfem_distribuicao_endereco,
+                                      locale = locale(encoding = "latin1"))
+
+anm_cfem_distribuicao <- 
+  anm_cfem_distribuicao |> 
+  tidyr::unite(competencia, "Mês", "Ano", sep = "-") |> 
+  dplyr::mutate(competencia = stringr::str_c("01-", competencia)) |>
+  dplyr::mutate(competencia = lubridate::dmy(competencia))
+
+# Writing file
+
+nome_arquivo_csv <- "anm_cfem_distribuicao"
+
+caminho_arquivo <- paste0(getwd(),"/",nome_arquivo_csv, ".txt")
+
+readr::write_csv2(anm_cfem_distribuicao,
+                  caminho_arquivo)
