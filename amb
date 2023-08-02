@@ -59,8 +59,8 @@ anm_agua_mineral_producao_valor <- anm_agua_mineral_producao |>
   dplyr::select(`Valor (R$)`)
 
 anm_agua_mineral_producao_embalagens <- 
-  dplyr::bind_cols(agua_mineral_producao_litros,
-                   agua_mineral_producao_valor)
+  dplyr::bind_cols(anm_agua_mineral_producao_litros,
+                   anm_agua_mineral_producao_valor)
 
 # Writing file
 
