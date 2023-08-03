@@ -1,0 +1,24 @@
+###### anm_barragens ###########################################################
+
+anm_procuradoria_divida_ativa_endereco <-
+  "https://app.anm.gov.br/dadosabertos/PROJUR/Procuradoria_DividaAtiva.csv"
+
+anm_procuradoria_divida_ativa <- 
+  readr::read_csv2(anm_procuradoria_divida_ativa_endereco,
+                   locale = readr::locale(encoding = "latin1"),
+                   col_types = readr::cols(
+                     'AnoDoProcesso' = readr::col_date(format = "%Y"),
+                     .default = readr::col_character()))
+
+anm_procuradoria_divida_ativa <- anm_procuradoria_divida_ativa |>
+  dplyr::mutate(ValorAtualizado = as.double(ValorAtualizado),
+                DataAtualizacao = as.Date(DataAtualizacao))
+
+# Writing file
+
+nome_arquivo_csv <- "anm_procuradoria_divida_ativa"
+
+caminho_arquivo <- paste0(getwd(),"/",nome_arquivo_csv, ".txt")
+
+readr::write_csv2(anm_procuradoria_divida_ativa,
+                  caminho_arquivo)
