@@ -1,4 +1,4 @@
-###### anm_barragens ###########################################################
+###### anm_procuradoria_divida_ativa ###########################################################
 
 anm_procuradoria_divida_ativa_endereco <-
   "https://app.anm.gov.br/dadosabertos/PROJUR/Procuradoria_DividaAtiva.csv"
