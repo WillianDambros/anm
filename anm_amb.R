@@ -15,11 +15,12 @@ anm_agua_mineral_producao <-
                        ~ readr::parse_number(., locale = readr::locale(
                          decimal_mark = ","))))
 # 2 maneira
-anm_amb_agua_mineral_producao <- readr::read_csv(agua_mineral_producao_file,
-                  locale = readr::locale(encoding = "latin1",
-                                         decimal_mark = ","),
-                  col_types =
-                    readr::cols(`Ano base` = readr::col_date(format = "%Y")))
+anm_amb_agua_mineral_producao <- readr::read_csv(
+  agua_mineral_producao_file,
+  locale = readr::locale(encoding = "latin1",
+                         decimal_mark = ","),
+  col_types =
+    readr::cols(`Ano base` = readr::col_date(format = "%Y")))
 
 # production by packaging #
 
@@ -95,12 +96,8 @@ anm_amb_producao_beneficiada
 # writing PostgreSQL
 
 # Conectar ao banco de dados
-conexao <- RPostgres::dbConnect(RPostgres::Postgres(),
-                                dbname = "##########",
-                                host = "############",
-                                port = "###########",
-                                user = "###########",
-                                password = "#############")
+
+source("X:/POWER BI/NOVOCAGED/conexao.R")
 
 # Listar as tabelas existentes
 RPostgres::dbListTables(conexao)
